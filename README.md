@@ -11,4 +11,4 @@ It was observed that the CAN control gives an opportunity for a lower priority m
 After adding a small delay to the high priority side we were able to see consistant reception of the low priority message.
 
 
-<img src="docs/babbling_node_with_delay.jpg>
+<img src="docs/babbling_node_with_delay.jpg">

@@ -12,7 +12,7 @@ add_executable(can_development_server
     )
 
 add_executable(can_development_server_lp
-    can_development_server.c
+    can_development_server_lp.c
     )
 
 pico_set_program_name(can_development_rx "test")

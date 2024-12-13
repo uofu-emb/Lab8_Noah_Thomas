@@ -65,17 +65,17 @@ void task2(void* args)
 {
     struct can2040_msg transmitMsg;
 
-    transmitMsg.id = 0x00A0;
+    transmitMsg.id = 0x000000A0;
     transmitMsg.dlc = 0x0008;
     transmitMsg.data32[0] = 0x11223344;
     transmitMsg.data32[1] = 0x55667788;
 
     while(1)
     {
-        sleep_ms(1000);
-        printf("Trying to transmit\n");
+        vTaskDelay(pdMS_TO_TICKS(1));
+        // printf("Trying to transmit\n");
         int returnValue = can2040_transmit(&cbus, &transmitMsg);
-        printf("Return value %i\n", returnValue);
+        // printf("Return value %i\n", returnValue);
     }
     // check if something on queue
     // if something, print it

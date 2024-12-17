@@ -9,7 +9,7 @@ env:
   UNITY_PATH: /usr/local/share/pico/Unity
   OPENOCD_PATH: /usr/share/openocd
   PICO_TOOLCHAIN_PATH: /usr/bin
-  CAN_PATH: /usr/local/share/pico/can2040
+  CAN_PATH: ./source/lib/can2040
 
 jobs:
   build:

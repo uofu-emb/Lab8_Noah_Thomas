@@ -28,6 +28,12 @@ else()
     set(UNITY_PATH lib/unity)
 endif()
 
+if(DEFINED ENV{CAN_PATH})
+    set(CAN_PATH $ENV{CAN_PATH})
+else()
+    set(CAN_PATH lib/can2040)
+endif()
+
 # ====================================================================================
 cmake_minimum_required(VERSION 3.13)
 
@@ -62,8 +68,7 @@ add_compile_definitions(
 # This is where your project header files are located.
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 
-set(CAN_PATH lib/can2040)
-include(lib/can2040/can2040.cmake)
+include(${CAN_PATH}/can2040.cmake)
 
 # The main executable is defined inside the src directory.
 add_subdirectory(src)

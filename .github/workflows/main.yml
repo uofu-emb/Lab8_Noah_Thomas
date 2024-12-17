@@ -42,6 +42,7 @@ jobs:
         run: |
           pwd
           ls ./source/lib/can2040
+          find / -name "can2040.cmake" 2>/dev/null
           cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B ./build ./source
 
       - name: Build

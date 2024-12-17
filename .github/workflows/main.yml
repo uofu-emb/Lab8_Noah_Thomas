@@ -40,7 +40,7 @@ jobs:
         # and build directories, but this is only available with CMake 3.13 and higher.
         # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
         run: |
-          ls /usr/local/share
+          find / -name "can2040"
           cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B ./build ./source
 
       - name: Build

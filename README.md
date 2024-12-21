@@ -1,10 +1,14 @@
-# Renode setup
-The Raspberry Pico needs configuration files for Renode to work properly.
+# Noah and Thomas CAN bus lab
 
-* On MacOS, the installation location is `/Applications/Renode.app/Contents/MacOs`
-* On Linux, the location for Debian, Fedora, and Arch is `/opt/renode`
-* On Windows, the location is `C://Program Files/Renode`
+## Observations for final activity
 
-To add the Pico configuration files:
-1. Copy `rp2040_spinlock.py` and `rp2040_divider.py` to the `scripts/pydev` directory of your Renode installation.
-1. Copy `rpi_pico_rp2040_w.repl` to the `platforms/cpus` directory.
+It was observed that the CAN control gives an opportunity for a lower priority message to happen every couple milliseconds. Looking at the logic analyzer when just transmitting as fast as possible there were "quiet" periods every couple milliseconds. We assume that this is to prevent a babbling nodes from completely dominating. In order to show that babbling nodes affect a lower priority message, we had to make a the lower priority message occur frequently, we chose a period of 1ms. The below screenshot shows the effects of the babbling node on our low priority node.
+
+
+<img src="docs/babbling_node_prevention.jpg">
+
+
+After adding a small delay to the high priority side we were able to see consistant reception of the low priority message.
+
+
+<img src="docs/babbling_node_with_delay.jpg">

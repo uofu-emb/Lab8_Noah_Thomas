@@ -9,6 +9,7 @@ env:
   UNITY_PATH: /usr/local/share/pico/Unity
   OPENOCD_PATH: /usr/share/openocd
   PICO_TOOLCHAIN_PATH: /usr/bin
+  # CAN_PATH: ./source/lib/can2040
 
 jobs:
   build:
@@ -23,6 +24,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: ${{github.workspace}}/source
+          submodules: 'true'
 
       - name: Create Build Environment
         # Some projects don't allow in-source building, so create a separate build directory
@@ -38,21 +40,11 @@ jobs:
         # Note the current convention is to use the -S and -B options here to specify source
         # and build directories, but this is only available with CMake 3.13 and higher.
         # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-        run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B ./build ./source
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B ./build ./source
 
       - name: Build
         working-directory: ${{github.workspace}}
         shell: bash
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: cmake --build ./build --config $BUILD_TYPE --parallel $(nproc)
-
-      - name: Flash
-        # This follows the convention of where we put tests, but it can be anything
-        working-directory: ${{github.workspace}}/build/test
-        shell: bash
-        # Make sure to set the correct elf file
-        run: openocd -s $OPENOCD_PATH -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c 'adapter speed 5000; program "mytest.elf" verify reset exit'
-      - name: Test
-        working-directory: ${{github.workspace}}
-        shell: bash
-        run: python3 /usr/local/share/pico/unity_checker.py

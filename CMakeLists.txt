@@ -1,3 +1,4 @@
+# ====================================================================================
 # == DO NEVER EDIT THE NEXT LINES for Raspberry Pi Pico VS Code Extension to work ==
 if(WIN32)
     set(USERHOME $ENV{USERPROFILE})
@@ -25,6 +26,12 @@ if(DEFINED ENV{UNITY_PATH})
     set(UNITY_PATH $ENV{UNITY_PATH})
 else()
     set(UNITY_PATH lib/unity)
+endif()
+
+if(DEFINED ENV{CAN_PATH})
+    set(CAN_PATH $ENV{CAN_PATH})
+else()
+    set(CAN_PATH lib/can2040)
 endif()
 
 # ====================================================================================
@@ -60,6 +67,8 @@ add_compile_definitions(
 
 # This is where your project header files are located.
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+
+include(${CAN_PATH}/can2040.cmake)
 
 # The main executable is defined inside the src directory.
 add_subdirectory(src)
